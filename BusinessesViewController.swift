@@ -8,14 +8,21 @@
 
 import UIKit
 
-class BusinessesViewController: UIViewController, UITableViewDelegate,UITableViewDataSource, FiltersViewControllerDelegate {
+class BusinessesViewController: UIViewController, UITableViewDelegate,UITableViewDataSource, UISearchBarDelegate, FiltersViewControllerDelegate {
 
     var businesses: [Business]!
-    
+
     @IBOutlet weak var tableView: UITableView!
+    var searchBar: UISearchBar!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        searchBar = UISearchBar()
+        searchBar.sizeToFit()
+        navigationItem.titleView = searchBar
+        searchBar.delegate = self
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -70,7 +77,6 @@ class BusinessesViewController: UIViewController, UITableViewDelegate,UITableVie
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let navigationController = segue.destinationViewController as! UINavigationController
         let filtersViewController = navigationController.topViewController as! FiltersViewController
-        
         filtersViewController.delegate = self
     }
     
@@ -83,6 +89,20 @@ class BusinessesViewController: UIViewController, UITableViewDelegate,UITableVie
             self.businesses = businesses
             self.tableView.reloadData()
         }
+        
     }
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        Business.searchWithTerm(searchText, sort: nil, categories: ["asianfusion", "burgers"], deals: nil) {
+            (businesses: [Business]!, error: NSError!) -> Void in
+            self.businesses = businesses
+            self.tableView.reloadData()
+        }
+
+    }
+    
+    
+    
     
 }
