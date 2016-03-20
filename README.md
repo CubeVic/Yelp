@@ -49,7 +49,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-* implement "drop down"-ish field in the filter screen in order to display the options in the diferent filters
+* i tried to implement "drop down"-ish field in the filter screen in order to display the options in the diferent filters but i run into several issue wiht the layout that i couldn't solve
 * Pass data between the views using delegates is not completly clear yet
 * i still find messy the way i display my code, then find a specific block of code is still consuming time.
 
