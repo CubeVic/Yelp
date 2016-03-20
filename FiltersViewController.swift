@@ -28,6 +28,10 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     var switchStates = [Int:Bool]()
     var dealState = [Int:Bool]()
     var sortState = Int()
+    
+    var currentCell: NSIndexPath?
+    var previousCellIndex = NSIndexPath()
+    
     weak var delegate: FiltersViewControllerDelegate?
     
     var isSortExpanded = false
@@ -121,24 +125,71 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func onSortCellTapped(sender: UITapGestureRecognizer) {
+        
         let cell = sender.view as! SortCell
-        if !isSortExpanded{
-            let indexPath = tableView.indexPathForCell(cell)
-            let name = cell.sortLabel.text! as String
+        var previousCell = SortCell()
+        //var previousCellIndex = NSIndexPath()
+        let indexPath = tableView.indexPathForCell(cell)
+        
+        if currentCell == nil {
             print(sort[(indexPath?.row)!]["code"]!)
             sortState = (indexPath?.row)!
+            
             if cell.checkedImageView.hidden {
                 cell.checkedImageView.hidden = false
             }
+            
             cell.checkedImageView.image = UIImage(named: "checked")
-            //tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: UITableViewRowAnimation.Automatic)
-            isSortExpanded = !isSortExpanded
-            print(isSortExpanded)
+            currentCell = indexPath!
+            previousCell = cell
+            previousCellIndex = currentCell!
         } else {
-            cell.checkedImageView.hidden = true
-            isSortExpanded = !isSortExpanded
+                currentCell = tableView.indexPathForCell(cell)
+            if currentCell != previousCellIndex {
+                previousCell = tableView.cellForRowAtIndexPath(previousCellIndex) as! SortCell
+                previousCell.checkedImageView.hidden = true
+                
+                if cell.checkedImageView.hidden {
+                    cell.checkedImageView.hidden = false
+                }
+                
+                cell.checkedImageView.image = UIImage(named: "checked")
+                previousCellIndex = currentCell!
+                print(sort[(indexPath?.row)!]["code"]!)
+                sortState = (indexPath?.row)!
+            } else  {
+                cell.checkedImageView.hidden = true
+                print(sort[(indexPath?.row)!]["code"]!)
+                previousCellIndex = currentCell!
+                currentCell = nil
+            }
+            
         }
         
+//        if !isSortExpanded{
+//            let indexPath = tableView.indexPathForCell(cell)
+//            print(sort[(indexPath?.row)!]["code"]!)
+//            sortState = (indexPath?.row)!
+//        
+//            if currentCell == indexPath?.row {
+//                if cell.checkedImageView.hidden {
+//                    cell.checkedImageView.hidden = false
+//                }
+//            
+//            }
+//    
+//            
+//            cell.checkedImageView.image = UIImage(named: "checked")
+//            currentCell = (indexPath?.row)!
+//            //tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: UITableViewRowAnimation.Automatic)
+//            isSortExpanded = !isSortExpanded
+//            print(isSortExpanded)
+//            
+//        } else {
+//            cell.checkedImageView.hidden = true
+//            isSortExpanded = !isSortExpanded
+//        }
+//        
         
     }
     
