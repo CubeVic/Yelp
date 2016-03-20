@@ -84,13 +84,36 @@ class BusinessesViewController: UIViewController, UITableViewDelegate,UITableVie
     
     func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String : AnyObject]) {
         
-        var categories = filters["categories"] as? [String]
-        var deal = filters["deal"] as! Bool
+        let categories = filters["categories"] as? [String]
+        let deal = filters["deal"] as! Bool
+        let sort = filters["sort"] as! Int
+
         
-        Business.searchWithTerm("Restaurants", sort: nil, categories: categories, deals: deal){
-            (businesses: [Business]!, error: NSError!) -> Void in
-            self.businesses = businesses
-            self.tableView.reloadData()
+        switch sort {
+            case 0:
+                Business.searchWithTerm("Restaurants", sort: YelpSortMode.BestMatched, categories: categories, deals: deal){
+                    (businesses: [Business]!, error: NSError!) -> Void in
+                    self.businesses = businesses
+                    self.tableView.reloadData()
+            }
+            case 1:
+                Business.searchWithTerm("Restaurants", sort: YelpSortMode.Distance, categories: categories, deals: deal){
+                    (businesses: [Business]!, error: NSError!) -> Void in
+                    self.businesses = businesses
+                    self.tableView.reloadData()
+            }
+            case 2:
+                Business.searchWithTerm("Restaurants", sort: YelpSortMode.HighestRated, categories: categories, deals: deal){
+                    (businesses: [Business]!, error: NSError!) -> Void in
+                    self.businesses = businesses
+                    self.tableView.reloadData()
+            }
+            default:
+                Business.searchWithTerm("Restaurants", sort: nil, categories: categories, deals: deal){
+                    (businesses: [Business]!, error: NSError!) -> Void in
+                    self.businesses = businesses
+                    self.tableView.reloadData()
+            }
         }
         
     }

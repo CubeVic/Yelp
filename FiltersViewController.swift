@@ -27,7 +27,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     var switchStates = [Int:Bool]()
     var dealState = [Int:Bool]()
-    
+    var sortState = Int()
     weak var delegate: FiltersViewControllerDelegate?
     
     var isSortExpanded = false
@@ -76,50 +76,44 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.section == 1 {
-            if !isSortExpanded {
-                if indexPath.row == 0 {
-                    return 44
-                } else {
-                    return 0
-                }
-            } else {
-                return 44
-            }
-        }
-        
-        return 44
-    }
+//    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+//        if indexPath.section == 1 {
+//            if !isSortExpanded {
+//                if indexPath.row == 0 {
+//                    return 44
+//                } else {
+//                    return 0
+//                }
+//            } else {
+//                return 44
+//            }
+//        }
+//        return 44
+//    }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
             switch indexPath.section {
-                
-                
-            case 0:
-                let cell = tableView.dequeueReusableCellWithIdentifier("DealCell", forIndexPath: indexPath) as! DealCell
-                cell.delegate = self
-                cell.dealSwitch.on = dealState[indexPath.row] ?? false
+                case 0:
+                    let cell = tableView.dequeueReusableCellWithIdentifier("DealCell", forIndexPath: indexPath) as! DealCell
+                    cell.delegate = self
+                    cell.dealSwitch.on = dealState[indexPath.row] ?? false
                 return cell
                 
-            case 1:
-                let cell = tableView.dequeueReusableCellWithIdentifier("SortCell", forIndexPath: indexPath) as! SortCell
-                cell.sortLabel.text = sort[indexPath.row]["name"]
-                
-                let tapGesture = UITapGestureRecognizer(target: self, action: "onSortCellTapped:")
-                cell.addGestureRecognizer(tapGesture)
-                
+                case 1:
+                    let cell = tableView.dequeueReusableCellWithIdentifier("SortCell", forIndexPath: indexPath) as! SortCell
+                    cell.sortLabel.text = sort[indexPath.row]["name"]
+                    //declare the gesture
+                    let tapGesture = UITapGestureRecognizer(target: self, action: "onSortCellTapped:")
+                    // attach the gesture to the cell
+                    cell.addGestureRecognizer(tapGesture)
                 return cell
-            case 2:
+                
+                case 2:
                     let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
-                        cell.categoryLabel.text = categories[indexPath.row]["name"]
-                        cell.delegate = self
-                        cell.onSwitch.on = switchStates[indexPath.row]  ?? false
+                    cell.categoryLabel.text = categories[indexPath.row]["name"]
+                    cell.delegate = self
+                    cell.onSwitch.on = switchStates[indexPath.row]  ?? false
                 return cell
-                
-
-
-                
                 default:
                 return UITableViewCell()
                 
@@ -127,9 +121,18 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func onSortCellTapped(sender: UITapGestureRecognizer) {
-        print("tap sort")
-        isSortExpanded = !isSortExpanded
-        tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: UITableViewRowAnimation.Automatic)
+        let cell = sender.view as! SortCell
+        let indexPath = tableView.indexPathForCell(cell)
+        //print("i tapped \(indexPath!) \(cell.sortLabel.text)"
+        let name = cell.sortLabel.text! as String
+        print(sort[(indexPath?.row)!]["code"]!)
+        sortState = (indexPath?.row)!
+        print(sortState)
+        cell.checkedImageView.image = UIImage(named: "checked")
+        //tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: UITableViewRowAnimation.Automatic)
+         isSortExpanded = !isSortExpanded
+        
+        
     }
     
     
@@ -155,7 +158,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         
         filters["deal"] = dealState[0] ?? false
-        
+        filters["sort"] = sortState
         delegate?.filtersViewController?(self, didUpdateFilters: filters)
     }
     

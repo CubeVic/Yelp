@@ -11,14 +11,17 @@ import UIKit
 class SortCell: UITableViewCell {
 
     @IBOutlet weak var sortLabel: UILabel!
+    @IBOutlet weak var checkedImageView: UIImageView!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
+    
 
 }
