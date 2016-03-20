@@ -30,6 +30,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     weak var delegate: FiltersViewControllerDelegate?
     
+    var isSortExpanded = false
+    
     let filterStructure: [[sections]] = [[.category],[.sort],[.deal]]
     
     override func viewDidLoad() {
@@ -74,6 +76,22 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         
     }
     
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.section == 1 {
+            if !isSortExpanded {
+                if indexPath.row == 0 {
+                    return 44
+                } else {
+                    return 0
+                }
+            } else {
+                return 44
+            }
+        }
+        
+        return 44
+    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
             switch indexPath.section {
                 
@@ -87,6 +105,9 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             case 1:
                 let cell = tableView.dequeueReusableCellWithIdentifier("SortCell", forIndexPath: indexPath) as! SortCell
                 cell.sortLabel.text = sort[indexPath.row]["name"]
+                
+                let tapGesture = UITapGestureRecognizer(target: self, action: "onSortCellTapped:")
+                cell.addGestureRecognizer(tapGesture)
                 
                 return cell
             case 2:
@@ -103,6 +124,12 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
                 return UITableViewCell()
                 
             }
+    }
+    
+    func onSortCellTapped(sender: UITapGestureRecognizer) {
+        print("tap sort")
+        isSortExpanded = !isSortExpanded
+        tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: UITableViewRowAnimation.Automatic)
     }
     
     
