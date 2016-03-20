@@ -7,15 +7,25 @@
 //
 
 import UIKit
+import SwiftHEXColors
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var colorBlack: UIColor = UIColor.blackColor()
+    var colorWhite: UIColor = UIColor.whiteColor()
+    var colorPrincipal: UIColor = UIColor(hexString: "#3F51B5")!
+    var colorSecundary: UIColor = UIColor(hexString: "#E3F2FD")!
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        UINavigationBar.appearance().barTintColor = colorPrincipal
+        UINavigationBar.appearance().tintColor = colorWhite
+        UINavigationBar.appearance().alpha  = 0.8
+        UINavigationBar.appearance().translucent = true
+        
         return true
     }
 
