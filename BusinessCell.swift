@@ -17,10 +17,10 @@ class BusinessCell: UITableViewCell {
     @IBOutlet weak var reviewsLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var categoriesLabel: UILabel!
-    
     var business: Business! {
         didSet{
             thumbImageView.setImageWithURL(business.imageURL!)
+
             nameLabel.text = business.name
             distanceLabel.text = "\(business.distance!)"
             ratingImageView.setImageWithURL(business.ratingImageURL!)
@@ -34,8 +34,8 @@ class BusinessCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        thumbImageView.layer.cornerRadius = 5
-        thumbImageView.clipsToBounds = true
+        //thumbImageView.layer.cornerRadius = 5
+        //thumbImageView.clipsToBounds = true
         nameLabel.preferredMaxLayoutWidth = nameLabel.frame.size.width
     }
 
