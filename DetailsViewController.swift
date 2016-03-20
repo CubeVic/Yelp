@@ -19,11 +19,20 @@ class DetailsViewController: UIViewController {
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var wrapperView: UIView!
     
+    @IBOutlet weak var backgroundImageView: UIImageView!
     var business: Business!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        backgroundImageView.setImageWithURL(business.imageURL!)
+        // 1
+        var darkBlur = UIBlurEffect(style: UIBlurEffectStyle.ExtraLight)
+        // 2
+        var blurView = UIVisualEffectView(effect: darkBlur)
+        blurView.frame = backgroundImageView.bounds
+        // 3
+        backgroundImageView.addSubview(blurView)
         
         thumbnailImageView.setImageWithURL(business.imageURL!)
         thumbnailImageView.layer.cornerRadius = 5
@@ -45,7 +54,9 @@ class DetailsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+   
 
+   
     /*
     // MARK: - Navigation
 

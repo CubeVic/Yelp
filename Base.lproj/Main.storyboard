@@ -163,6 +163,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Nba-9p-FvT">
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hUJ-P8-m3h">
                                 <rect key="frame" x="32" y="79" width="256" height="398"/>
                                 <subviews>
@@ -210,7 +213,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="256" height="232"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="25" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="1. Grand Pu Bah" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17A-4e-jXT">
-                                        <rect key="frame" x="8" y="246" width="152" height="17"/>
+                                        <rect key="frame" x="8" y="246" width="152.5" height="17"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
@@ -246,15 +249,20 @@
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
                         <constraints>
+                            <constraint firstItem="Nba-9p-FvT" firstAttribute="top" secondItem="qIA-QD-mEI" secondAttribute="bottom" id="5Rw-aZ-QjR"/>
+                            <constraint firstItem="Nba-9p-FvT" firstAttribute="leading" secondItem="Xt7-a3-S7l" secondAttribute="leading" id="BSB-jj-gsQ"/>
+                            <constraint firstAttribute="trailing" secondItem="Nba-9p-FvT" secondAttribute="trailing" id="BwL-cY-cqg"/>
                             <constraint firstItem="hUJ-P8-m3h" firstAttribute="centerX" secondItem="Xt7-a3-S7l" secondAttribute="centerX" id="PJe-zE-oov"/>
                             <constraint firstItem="hUJ-P8-m3h" firstAttribute="leading" secondItem="Xt7-a3-S7l" secondAttribute="leadingMargin" constant="16" id="Y9h-Ef-8Kh"/>
                             <constraint firstItem="hUJ-P8-m3h" firstAttribute="top" secondItem="qIA-QD-mEI" secondAttribute="bottom" constant="59" id="Zr8-Fs-Lsr"/>
                             <constraint firstItem="8MM-KG-Oqb" firstAttribute="top" secondItem="hUJ-P8-m3h" secondAttribute="bottom" constant="91" id="mLl-Md-jJd"/>
+                            <constraint firstItem="8MM-KG-Oqb" firstAttribute="top" secondItem="Nba-9p-FvT" secondAttribute="bottom" id="sfe-H2-ugZ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ljA-bh-JTk"/>
                     <connections>
                         <outlet property="addressLabel" destination="BFF-4b-ZV0" id="vUi-Mu-H8u"/>
+                        <outlet property="backgroundImageView" destination="Nba-9p-FvT" id="Kfw-p7-IuC"/>
                         <outlet property="categoryLabel" destination="u2L-tm-zxh" id="uRP-hm-pYA"/>
                         <outlet property="distanceLabel" destination="HCF-K4-wmu" id="akN-NJ-8Eo"/>
                         <outlet property="nameLabel" destination="17A-4e-jXT" id="9qY-5c-CRO"/>
