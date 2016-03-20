@@ -8,14 +8,21 @@
 
 import UIKit
 
-class BusinessesViewController: UIViewController, UITableViewDelegate,UITableViewDataSource {
+class BusinessesViewController: UIViewController, UITableViewDelegate,UITableViewDataSource, UISearchBarDelegate, FiltersViewControllerDelegate {
 
     var businesses: [Business]!
-    
+
     @IBOutlet weak var tableView: UITableView!
+    var searchBar: UISearchBar!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        searchBar = UISearchBar()
+        searchBar.sizeToFit()
+        navigationItem.titleView = searchBar
+        searchBar.delegate = self
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -50,6 +57,8 @@ class BusinessesViewController: UIViewController, UITableViewDelegate,UITableVie
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if businesses != nil {
@@ -66,6 +75,59 @@ class BusinessesViewController: UIViewController, UITableViewDelegate,UITableVie
         
         return cell
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let navigationController = segue.destinationViewController as! UINavigationController
+        let filtersViewController = navigationController.topViewController as! FiltersViewController
+        filtersViewController.delegate = self
+    }
+    
+    func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String : AnyObject]) {
+        
+        let categories = filters["categories"] as? [String]
+        let deal = filters["deal"] as! Bool
+        let sort = filters["sort"] as! Int
+
+        
+        switch sort {
+            case 0:
+                Business.searchWithTerm("Restaurants", sort: YelpSortMode.BestMatched, categories: categories, deals: deal){
+                    (businesses: [Business]!, error: NSError!) -> Void in
+                    self.businesses = businesses
+                    self.tableView.reloadData()
+            }
+            case 1:
+                Business.searchWithTerm("Restaurants", sort: YelpSortMode.Distance, categories: categories, deals: deal){
+                    (businesses: [Business]!, error: NSError!) -> Void in
+                    self.businesses = businesses
+                    self.tableView.reloadData()
+            }
+            case 2:
+                Business.searchWithTerm("Restaurants", sort: YelpSortMode.HighestRated, categories: categories, deals: deal){
+                    (businesses: [Business]!, error: NSError!) -> Void in
+                    self.businesses = businesses
+                    self.tableView.reloadData()
+            }
+            default:
+                Business.searchWithTerm("Restaurants", sort: nil, categories: categories, deals: deal){
+                    (businesses: [Business]!, error: NSError!) -> Void in
+                    self.businesses = businesses
+                    self.tableView.reloadData()
+            }
+        }
+        
+    }
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        Business.searchWithTerm(searchText, sort: nil, categories: ["asianfusion", "burgers"], deals: nil) {
+            (businesses: [Business]!, error: NSError!) -> Void in
+            self.businesses = businesses
+            self.tableView.reloadData()
+        }
+
+    }
+    
     
     
     
