@@ -122,15 +122,22 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func onSortCellTapped(sender: UITapGestureRecognizer) {
         let cell = sender.view as! SortCell
-        let indexPath = tableView.indexPathForCell(cell)
-        //print("i tapped \(indexPath!) \(cell.sortLabel.text)"
-        let name = cell.sortLabel.text! as String
-        print(sort[(indexPath?.row)!]["code"]!)
-        sortState = (indexPath?.row)!
-        print(sortState)
-        cell.checkedImageView.image = UIImage(named: "checked")
-        //tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: UITableViewRowAnimation.Automatic)
-         isSortExpanded = !isSortExpanded
+        if !isSortExpanded{
+            let indexPath = tableView.indexPathForCell(cell)
+            let name = cell.sortLabel.text! as String
+            print(sort[(indexPath?.row)!]["code"]!)
+            sortState = (indexPath?.row)!
+            if cell.checkedImageView.hidden {
+                cell.checkedImageView.hidden = false
+            }
+            cell.checkedImageView.image = UIImage(named: "checked")
+            //tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: UITableViewRowAnimation.Automatic)
+            isSortExpanded = !isSortExpanded
+            print(isSortExpanded)
+        } else {
+            cell.checkedImageView.hidden = true
+            isSortExpanded = !isSortExpanded
+        }
         
         
     }
