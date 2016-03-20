@@ -22,7 +22,6 @@ class SwitchCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         onSwitch.addTarget(self, action: "switchValueChanged", forControlEvents: UIControlEvents.ValueChanged)
     }
 
@@ -33,7 +32,6 @@ class SwitchCell: UITableViewCell {
     }
 
     func switchValueChanged(){
-        print("switch changed")
             delegate?.switchCell?(self, didChangeValue: onSwitch.on)
     }
 }
