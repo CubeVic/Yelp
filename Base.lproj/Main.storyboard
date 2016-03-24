@@ -119,9 +119,7 @@
                                             <outlet property="ratingImageView" destination="aNS-M7-fr7" id="W3v-bQ-I2D"/>
                                             <outlet property="reviewsLabel" destination="V06-Ch-7Pi" id="bh4-km-zXb"/>
                                             <outlet property="thumbImageView" destination="5Hf-QH-xnP" id="wqX-8f-APh"/>
-                                            <segue destination="YH1-ag-zJP" kind="popover" identifier="detailsSegue" popoverAnchorView="c1A-gc-Efy" id="mG2-iP-k7B">
-                                                <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                            </segue>
+                                            <segue destination="YH1-ag-zJP" kind="push" identifier="detailsSegue" id="mG2-iP-k7B"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -163,10 +161,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Nba-9p-FvT">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nba-9p-FvT">
                                 <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hUJ-P8-m3h">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hUJ-P8-m3h">
                                 <rect key="frame" x="32" y="79" width="256" height="398"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="489 Reviews" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7IJ-U7-2xU">
